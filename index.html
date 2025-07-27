@@ -3,104 +3,108 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mealory · Track Your Meals with Emotion</title>
-<meta name="description" content="Mealory · Daily Meal + Mood + Spending Diary. A visual, easy-to-use calendar for everything you eat and feel.">
-<link rel="icon" href="app_icon.png">
+<title>Mealory · Meal + Mood Diary</title>
+<meta name="description" content="Mealory - A lightweight app for logging meals, mood, and spending with photos.">
+<link rel="icon" href="favicon.ico">
 <style>
-/* 保持之前 HueView 的风格 */
-:root{
-  --bg:#fefefe; --surface:#f7f7f9; --text:#202020; --text2:#666; --blue:#6C9EFF;
+:root {
+  --bg:#ffffff; --surface:#f7f7f7; --text:#1A1A1A; --text2:#555; --blue:#7DA6FF;
 }
-*{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--text);
-font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Helvetica, Arial, Noto Sans, "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", sans-serif;}
-a{color:var(--blue);text-decoration:none}
-.container{max-width:1100px;margin:0 auto;padding:40px 24px}
-.brand img.icon{width:40px;height:40px;border-radius:12px}
-.lang-switch{display:flex;gap:8px;background:var(--surface);border-radius:12px;padding:6px;margin-left:auto}
-.lang-switch button{all:unset;cursor:pointer;padding:6px 14px;border-radius:10px;color:var(--text2);font-weight:600}
-.lang-switch button.active{background:var(--blue);color:#fff}
-.hero{display:grid;grid-template-columns:1.1fr 0.9fr;gap:36px;align-items:center;margin-top:40px}
-.hero h1{font-size:40px;line-height:1.1;margin:0 0 16px}
-.hero p.lead{color:var(--text2);font-size:18px;margin:0 0 24px}
-.cta{display:flex;gap:12px;flex-wrap:wrap}
-.button{display:inline-flex;align-items:center;gap:10px;background:var(--blue);color:#fff;font-weight:700;
-  padding:14px 22px;border-radius:14px;box-shadow:0 10px 30px rgba(125,166,255,.25);}
-.button.ghost{background:transparent;color:var(--text);border:1px solid rgba(0,0,0,.1)}
-.card{background:var(--surface);border-radius:20px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.1);}
-.section{margin-top:80px}
-.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-.gallery img{width:100%;border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.15);background:#eee;aspect-ratio:9/19.5;object-fit:cover}
+body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: var(--bg); color: var(--text); }
+.container { max-width: 1000px; margin: auto; padding: 32px; }
+nav { display: flex; justify-content: space-between; align-items: center; }
+nav .brand { display: flex; align-items: center; gap: 12px; font-weight: bold; font-size: 20px; }
+.icon { width: 40px; height: 40px; border-radius: 10px; }
+.lang-switch { display: flex; gap: 8px; }
+.lang-switch button { border: none; background: var(--surface); padding: 6px 12px; border-radius: 10px; cursor: pointer; color: var(--text2); }
+.lang-switch button.active { background: var(--blue); color: white; }
+.hero { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; }
+.hero h1 { font-size: 36px; margin-bottom: 12px; }
+.hero p { font-size: 18px; color: var(--text2); margin-bottom: 20px; }
+.button { background: var(--blue); color: #fff; border: none; padding: 14px 22px; font-weight: bold; border-radius: 12px; text-decoration: none; }
+.button.ghost { background: transparent; color: var(--text); border: 1px solid var(--text2); }
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 32px; }
+.gallery img { width: 100%; border-radius: 12px; }
+.section { margin-top: 64px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+.card { background: var(--surface); border-radius: 16px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+footer { text-align: center; margin-top: 64px; font-size: 14px; color: var(--text2); }
 </style>
 </head>
 <body>
 <div class="container">
-  <nav style="display:flex;align-items:center;gap:18px">
-    <img class="icon" src="app_icon.png" alt="Mealory icon">
-    <strong>Mealory</strong>
+  <nav>
+    <div class="brand">
+      <img src="app_icon.png" class="icon" alt="Mealory Icon">
+      <span>Mealory</span>
+    </div>
     <div class="lang-switch">
-      <button id="btn-en" class="active">English</button>
+      <button id="btn-en" class="active">EN</button>
       <button id="btn-zh">中文</button>
     </div>
   </nav>
 
   <section class="hero">
     <div>
-      <h1 data-en="Track Meals, Mood & Cost in One Tap" data-zh="记录三餐、情绪与花销，一键完成"></h1>
-      <p class="lead" data-en="A visual, easy-to-use calendar that turns your food photos into insights."
-         data-zh="用照片记录三餐，生成饮食习惯与情绪洞察。"></p>
-      <div class="cta">
-        <a href="#" class="button" data-en="Coming soon" data-zh="即将上线"></a>
-        <a href="#features" class="button ghost" data-en="See features" data-zh="查看功能"></a>
+      <h1 data-en="Track meals, mood & money" data-zh="记录饮食、情绪与花费"></h1>
+      <p data-en="A simple calendar that turns your food photos into meaningful reflections."
+         data-zh="一个轻量日历，把三餐照片变成有趣的生活反馈。"></p>
+      <div style="display:flex; gap:12px;">
+        <a href="#" class="button" data-en="Coming Soon" data-zh="即将上线"></a>
+        <a href="#features" class="button ghost" data-en="View Features" data-zh="查看功能"></a>
       </div>
     </div>
-    <div class="card">
-      <img class="sample" src="screenshot1.png" alt="Mealory screenshot">
-    </div>
+    <img src="screenshot1.png" style="border-radius:16px; width:100%; max-width:320px;">
   </section>
 
   <section id="features" class="section">
     <h2 data-en="Core Features" data-zh="核心功能"></h2>
-    <div class="grid-3" style="margin-top:24px">
+    <div class="grid-3">
       <div class="card">
-        <h3 data-en="📸 Photo + Time = Easy Log" data-zh="📸 照片+时间=智能归类"></h3>
-        <p data-en="Auto classify by meal time. Just upload and it knows if it’s lunch or dinner."
-           data-zh="自动根据时间归类到早餐/午餐/晚餐，上传照片即可完成记录。"></p>
+        <h3 data-en="Smart Meal Categorization" data-zh="智能餐次分类"></h3>
+        <p data-en="Just add photos. We auto-sort your meals by time of day."
+           data-zh="只需添加照片，系统会根据时间智能归类早餐、午餐或晚餐。"></p>
       </div>
       <div class="card">
-        <h3 data-en="📊 Mood Meets Meals" data-zh="📊 心情×饮食"></h3>
-        <p data-en="Tag your mood. Track what food makes you happy, tired, or calm."
-           data-zh="记录情绪，让你发现什么食物让你快乐、疲惫或放松。"></p>
+        <h3 data-en="Mood Tags & Notes" data-zh="心情标签与备注"></h3>
+        <p data-en="Mark how you felt with each meal. Discover patterns in emotion and food."
+           data-zh="为每餐记录当下心情，发现食物与情绪的关联。"></p>
       </div>
       <div class="card">
-        <h3 data-en="📅 Monthly Insights" data-zh="📅 月度饮食报告"></h3>
-        <p data-en="See trends in meals, mood, and money. Build better eating habits."
-           data-zh="查看饮食、情绪和花销的趋势，建立更好的饮食习惯。"></p>
+        <h3 data-en="Visual Monthly Reports" data-zh="月度可视报告"></h3>
+        <p data-en="See your mood, meals and spending in charts."
+           data-zh="用图表查看整月饮食、心情和花费趋势。"></p>
       </div>
     </div>
   </section>
 
   <section class="section">
-    <h2 data-en="App Preview" data-zh="界面预览"></h2>
+    <h2 data-en="Screenshots" data-zh="界面预览"></h2>
     <div class="gallery">
-      <img src="screenshot1.png" alt="screenshot 1">
-      <img src="screenshot2.png" alt="screenshot 2">
-      <img src="screenshot3.png" alt="screenshot 3">
-      <img src="screenshot4.png" alt="screenshot 4">
+      <img src="screenshot1.png" alt="Screenshot 1">
+      <img src="screenshot2.png" alt="Screenshot 2">
+      <img src="screenshot3.png" alt="Screenshot 3">
+      <img src="screenshot4.png" alt="Screenshot 4">
     </div>
   </section>
-</div>
 
+  <footer>
+    <p data-en="© 2025 Mealory. All rights reserved." data-zh="© 2025 Mealory。保留所有权利。"></p>
+  </footer>
+</div>
 <script>
-function setLang(lang){
-  document.querySelectorAll("[data-en]").forEach(el=>{
-    el.textContent = el.getAttribute(lang === "zh" ? "data-zh" : "data-en") || el.textContent;
+function setLang(lang) {
+  document.querySelectorAll('[data-en]').forEach(el => {
+    el.textContent = el.getAttribute(lang === 'zh' ? 'data-zh' : 'data-en');
   });
-  document.getElementById("btn-en").classList.toggle("active", lang === "en");
-  document.getElementById("btn-zh").classList.toggle("active", lang === "zh");
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+  localStorage.setItem('lang', lang);
 }
-document.getElementById("btn-en").onclick=()=>setLang("en");
-document.getElementById("btn-zh").onclick=()=>setLang("zh");
+const saved = localStorage.getItem('lang') || (navigator.language.startsWith('zh') ? 'zh' : 'en');
+document.getElementById('btn-en').onclick = () => setLang('en');
+document.getElementById('btn-zh').onclick = () => setLang('zh');
+setLang(saved);
 </script>
 </body>
 </html>
