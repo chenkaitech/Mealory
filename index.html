@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mealory · Track Your Meals with Emotion</title>
+<meta name="description" content="Mealory · Daily Meal + Mood + Spending Diary. A visual, easy-to-use calendar for everything you eat and feel.">
+<link rel="icon" href="app_icon.png">
+<style>
+/* 保持之前 HueView 的风格 */
+:root{
+  --bg:#fefefe; --surface:#f7f7f9; --text:#202020; --text2:#666; --blue:#6C9EFF;
+}
+*{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--text);
+font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Helvetica, Arial, Noto Sans, "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", sans-serif;}
+a{color:var(--blue);text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+.brand img.icon{width:40px;height:40px;border-radius:12px}
+.lang-switch{display:flex;gap:8px;background:var(--surface);border-radius:12px;padding:6px;margin-left:auto}
+.lang-switch button{all:unset;cursor:pointer;padding:6px 14px;border-radius:10px;color:var(--text2);font-weight:600}
+.lang-switch button.active{background:var(--blue);color:#fff}
+.hero{display:grid;grid-template-columns:1.1fr 0.9fr;gap:36px;align-items:center;margin-top:40px}
+.hero h1{font-size:40px;line-height:1.1;margin:0 0 16px}
+.hero p.lead{color:var(--text2);font-size:18px;margin:0 0 24px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.button{display:inline-flex;align-items:center;gap:10px;background:var(--blue);color:#fff;font-weight:700;
+  padding:14px 22px;border-radius:14px;box-shadow:0 10px 30px rgba(125,166,255,.25);}
+.button.ghost{background:transparent;color:var(--text);border:1px solid rgba(0,0,0,.1)}
+.card{background:var(--surface);border-radius:20px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.1);}
+.section{margin-top:80px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.gallery img{width:100%;border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.15);background:#eee;aspect-ratio:9/19.5;object-fit:cover}
+</style>
+</head>
+<body>
+<div class="container">
+  <nav style="display:flex;align-items:center;gap:18px">
+    <img class="icon" src="app_icon.png" alt="Mealory icon">
+    <strong>Mealory</strong>
+    <div class="lang-switch">
+      <button id="btn-en" class="active">English</button>
+      <button id="btn-zh">中文</button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <h1 data-en="Track Meals, Mood & Cost in One Tap" data-zh="记录三餐、情绪与花销，一键完成"></h1>
+      <p class="lead" data-en="A visual, easy-to-use calendar that turns your food photos into insights."
+         data-zh="用照片记录三餐，生成饮食习惯与情绪洞察。"></p>
+      <div class="cta">
+        <a href="#" class="button" data-en="Coming soon" data-zh="即将上线"></a>
+        <a href="#features" class="button ghost" data-en="See features" data-zh="查看功能"></a>
+      </div>
+    </div>
+    <div class="card">
+      <img class="sample" src="screenshot1.png" alt="Mealory screenshot">
+    </div>
+  </section>
+
+  <section id="features" class="section">
+    <h2 data-en="Core Features" data-zh="核心功能"></h2>
+    <div class="grid-3" style="margin-top:24px">
+      <div class="card">
+        <h3 data-en="📸 Photo + Time = Easy Log" data-zh="📸 照片+时间=智能归类"></h3>
+        <p data-en="Auto classify by meal time. Just upload and it knows if it’s lunch or dinner."
+           data-zh="自动根据时间归类到早餐/午餐/晚餐，上传照片即可完成记录。"></p>
+      </div>
+      <div class="card">
+        <h3 data-en="📊 Mood Meets Meals" data-zh="📊 心情×饮食"></h3>
+        <p data-en="Tag your mood. Track what food makes you happy, tired, or calm."
+           data-zh="记录情绪，让你发现什么食物让你快乐、疲惫或放松。"></p>
+      </div>
+      <div class="card">
+        <h3 data-en="📅 Monthly Insights" data-zh="📅 月度饮食报告"></h3>
+        <p data-en="See trends in meals, mood, and money. Build better eating habits."
+           data-zh="查看饮食、情绪和花销的趋势，建立更好的饮食习惯。"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 data-en="App Preview" data-zh="界面预览"></h2>
+    <div class="gallery">
+      <img src="screenshot1.png" alt="screenshot 1">
+      <img src="screenshot2.png" alt="screenshot 2">
+      <img src="screenshot3.png" alt="screenshot 3">
+      <img src="screenshot4.png" alt="screenshot 4">
+    </div>
+  </section>
+</div>
+
+<script>
+function setLang(lang){
+  document.querySelectorAll("[data-en]").forEach(el=>{
+    el.textContent = el.getAttribute(lang === "zh" ? "data-zh" : "data-en") || el.textContent;
+  });
+  document.getElementById("btn-en").classList.toggle("active", lang === "en");
+  document.getElementById("btn-zh").classList.toggle("active", lang === "zh");
+}
+document.getElementById("btn-en").onclick=()=>setLang("en");
+document.getElementById("btn-zh").onclick=()=>setLang("zh");
+</script>
+</body>
+</html>
