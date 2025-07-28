@@ -3,100 +3,183 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mealory · Meal + Mood Diary</title>
-<meta name="description" content="Mealory - A lightweight app for logging meals, mood, and spending with photos.">
+<title>Munchlog · 三餐记</title>
+<meta name="description" content="Munchlog — a daily meal-time calendar to log photos, cost, mood and food preferences. 三餐记 — 轻松记录三餐照片、消费、心情与饮食偏好。">
 <link rel="icon" href="favicon.ico">
 <style>
-:root {
-  --bg:#ffffff; --surface:#f7f7f7; --text:#1A1A1A; --text2:#555; --blue:#7DA6FF;
+:root{
+  --bg:#16171E; --surface:#1E1F27; --text:#E8EAF4; --text2:#B4B8C9; --blue:#7DA6FF; --green:#2ECC71;
+  --divider:rgba(255,255,255,.12); --warn:#FF7043; --gold:#FFD54F;
 }
-body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: var(--bg); color: var(--text); }
-.container { max-width: 1000px; margin: auto; padding: 32px; }
-nav { display: flex; justify-content: space-between; align-items: center; }
-nav .brand { display: flex; align-items: center; gap: 12px; font-weight: bold; font-size: 20px; }
-.icon { width: 40px; height: 40px; border-radius: 10px; }
-.lang-switch { display: flex; gap: 8px; }
-.lang-switch button { border: none; background: var(--surface); padding: 6px 12px; border-radius: 10px; cursor: pointer; color: var(--text2); }
-.lang-switch button.active { background: var(--blue); color: white; }
-.hero { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; }
-.hero h1 { font-size: 36px; margin-bottom: 12px; }
-.hero p { font-size: 18px; color: var(--text2); margin-bottom: 20px; }
-.button { background: var(--blue); color: #fff; border: none; padding: 14px 22px; font-weight: bold; border-radius: 12px; text-decoration: none; }
-.button.ghost { background: transparent; color: var(--text); border: 1px solid var(--text2); }
-.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 32px; }
-.gallery img { width: 100%; border-radius: 12px; }
-.section { margin-top: 64px; }
-.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
-.card { background: var(--surface); border-radius: 16px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-footer { text-align: center; margin-top: 64px; font-size: 14px; color: var(--text2); }
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Helvetica, Arial, Noto Sans, "PingFang SC","Hiragino Sans GB","Microsoft Yahei",sans-serif;}
+a{color:var(--blue);text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700}
+.brand img.icon{width:40px;height:40px;border-radius:12px}
+.nav-links{display:flex;gap:18px;align-items:center}
+.nav-links a{color:var(--text2);font-weight:600}
+.nav-links a:hover{color:var(--text)}
+.lang-switch{display:flex;gap:8px;background:var(--surface);border-radius:12px;padding:6px}
+.lang-switch button{all:unset;cursor:pointer;padding:6px 14px;border-radius:10px;color:var(--text2);font-weight:600}
+.lang-switch button.active{background:var(--blue);color:#0B1220}
+.hero{display:grid;grid-template-columns:1.1fr 0.9fr;gap:36px;align-items:center;margin-top:40px}
+.hero h1{font-size:40px;line-height:1.1;margin:0 0 16px}
+.hero p.lead{color:var(--text2);font-size:18px;margin:0 0 24px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.button{display:inline-flex;align-items:center;gap:10px;background:var(--blue);color:#0B1220;font-weight:700;
+  padding:14px 22px;border-radius:14px;box-shadow:0 10px 30px rgba(125,166,255,.25);}
+.button.ghost{background:transparent;color:var(--text);border:1px solid var(--divider)}
+.card{background:var(--surface);border-radius:20px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.25);}
+.section{margin-top:80px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+.tag{display:inline-block;padding:6px 10px;border-radius:8px;font-size:13px;background:rgba(125,166,255,.16);color:var(--blue)}
+.sample{width:100%;border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.35);background:#0f1118;aspect-ratio:9/19.5;object-fit:cover}
+.footer{margin-top:80px;color:var(--text2);font-size:14px;border-top:1px solid var(--divider);padding:32px 0}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.gallery img{width:100%;border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.35);background:#0f1118;aspect-ratio:9/19.5;object-fit:cover}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--divider);color:var(--text2);padding:10px 14px;border-radius:14px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;background:#0f1118;border:1px solid var(--divider);color:var(--text2);font-size:14px}
+@media (max-width:960px){ .hero{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
 <div class="container">
   <nav>
     <div class="brand">
-      <img src="app_icon_128x128.png" class="icon" alt="Mealory Icon">
-      <span>Mealory</span>
+      <img class="icon" src="app_icon_128x128.png" alt="Munchlog icon">
+      <span>Munchlog · 三餐记</span>
     </div>
-    <div class="lang-switch">
-      <button id="btn-en" class="active">EN</button>
-      <button id="btn-zh">中文</button>
+    <div style="display:flex;gap:16px;align-items:center">
+      <div class="nav-links">
+        <a href="#vision" data-en="Vision" data-zh="愿景"></a>
+        <a href="#features" data-en="Features" data-zh="功能"></a>
+        <a href="#screens" data-en="Screenshots" data-zh="界面"></a>
+        <a href="#privacy" data-en="Privacy" data-zh="隐私"></a>
+        <a href="#support" data-en="Support" data-zh="支持"></a>
+      </div>
+      <div class="lang-switch">
+        <button id="btn-en" class="active">English</button>
+        <button id="btn-zh">中文</button>
+      </div>
     </div>
   </nav>
 
   <section class="hero">
     <div>
-      <h1 data-en="Track meals, mood & money" data-zh="记录饮食、情绪与花费"></h1>
-      <p data-en="A simple calendar that turns your food photos into meaningful reflections."
-         data-zh="一个轻量日历，把三餐照片变成有趣的生活反馈。"></p>
-      <div style="display:flex; gap:12px;">
-        <a href="#" class="button" data-en="Coming Soon" data-zh="即将上线"></a>
-        <a href="#features" class="button ghost" data-en="View Features" data-zh="查看功能"></a>
+      <h1 data-en="Your daily meal‑time calendar" data-zh="你的每日三餐时间日历"></h1>
+      <p class="lead" data-en="Snap your meals, note the cost, mood, and preferences—in seconds. Build awareness, see patterns, and feel better."
+         data-zh="几秒钟完成记录：拍下食物、写上消费、心情和偏好。通过简单、可视化的方式建立饮食意识，发现模式，获得更好的生活质量。"></p>
+      <div class="cta">
+        <a href="#" class="button" data-en="Coming soon" data-zh="即将上架"></a>
+        <a href="#features" class="button ghost" data-en="Learn more" data-zh="了解功能"></a>
+      </div>
+      <div style="margin-top:16px" class="badge">
+        <span>•</span>
+        <span data-en="Private by design · iCloud sync optional" data-zh="隐私优先 · 可选 iCloud 同步"></span>
       </div>
     </div>
-    <img src="screenshot1.png" style="border-radius:16px; width:100%; max-width:320px;">
+    <div class="card">
+      <img class="sample" src="munch_screen1.png" data-en-src="munch_screen1.png" data-zh-src="munch_screen1_zh.png" alt="App screenshot 1">
+    </div>
+  </section>
+
+  <section id="vision" class="section">
+    <h2 data-en="Product vision" data-zh="产品愿景"></h2>
+    <p class="lead" data-en="Through simple and visual logging, Munchlog helps you build dietary awareness, improve quality of life, and gain self‑knowledge through memory plus data."
+       data-zh="通过简单、可视化的记录方式，Munchlog 帮助你建立饮食意识，提升健康生活质量，并通过「回忆 + 数据」带来自我认知。"></p>
   </section>
 
   <section id="features" class="section">
-    <h2 data-en="Core Features" data-zh="核心功能"></h2>
-    <div class="grid-3">
+    <h2 data-en="Core features" data-zh="核心功能"></h2>
+    <div class="grid-3" style="margin-top:24px">
       <div class="card">
-        <h3 data-en="Smart Meal Categorization" data-zh="智能餐次分类"></h3>
-        <p data-en="Just add photos. We auto-sort your meals by time of day."
-           data-zh="只需添加照片，系统会根据时间智能归类早餐、午餐或晚餐。"></p>
+        <div class="tag" data-en="Meal photos" data-zh="照片记录"></div>
+        <h3 style="margin:12px 0" data-en="One tap to capture meals" data-zh="一键拍照记录"></h3>
+        <p class="text2" data-en="Breakfast · Lunch · Dinner. Timestamped and organized in a meal‑time calendar."
+           data-zh="早餐·午餐·晚餐，自动带时间戳，按三餐时间日历整齐归档。"></p>
       </div>
       <div class="card">
-        <h3 data-en="Mood Tags & Notes" data-zh="心情标签与备注"></h3>
-        <p data-en="Mark how you felt with each meal. Discover patterns in emotion and food."
-           data-zh="为每餐记录当下心情，发现食物与情绪的关联。"></p>
+        <div class="tag" data-en="Cost" data-zh="消费"></div>
+        <h3 style="margin:12px 0" data-en="Expense in seconds" data-zh="消费秒记"></h3>
+        <p class="text2" data-en="Enter the amount or choose a preset. Monthly spending charts show peaks and habits."
+           data-zh="输入金额或选择预设。月度消费图表清晰呈现峰值与习惯。"></p>
       </div>
       <div class="card">
-        <h3 data-en="Visual Monthly Reports" data-zh="月度可视报告"></h3>
-        <p data-en="See your mood, meals and spending in charts."
-           data-zh="用图表查看整月饮食、心情和花费趋势。"></p>
+        <div class="tag" data-en="Mood" data-zh="心情"></div>
+        <h3 style="margin:12px 0" data-en="A quick mood tag" data-zh="轻量心情标签"></h3>
+        <p class="text2" data-en="Pick a mood and optional note. See how mood correlates with certain foods or times."
+           data-zh="选择心情并可补充备注。观察心情与特定食物或时段的关联。"></p>
       </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:24px">
+      <div class="card">
+        <div class="tag" data-en="Preferences" data-zh="饮食偏好"></div>
+        <h3 style="margin:12px 0" data-en="Tag your preferences" data-zh="偏好打标签"></h3>
+        <p class="text2" data-en="Protein‑heavy, low‑carb, spicy, dessert, coffee… customize your own set."
+           data-zh="高蛋白、低碳水、重口、甜点、咖啡……可自定义专属偏好集。"></p>
+      </div>
+      <div class="card">
+        <div class="tag" data-en="Insights" data-zh="洞察"></div>
+        <h3 style="margin:12px 0" data-en="Recall + data" data-zh="回忆 + 数据"></h3>
+        <p class="text2" data-en="Weekly summaries highlight spending peaks, mood alignment, and preference frequency."
+           data-zh="周报总结消费峰值、心情匹配度、偏好出现频率等关键指标。"></p>
+      </div>
+      <div class="card">
+        <div class="tag" data-en="Reminders" data-zh="提醒"></div>
+        <h3 style="margin:12px 0" data-en="Gentle reminders" data-zh="轻提醒"></h3>
+        <p class="text2" data-en="Optional reminders before each meal to build consistent habits."
+           data-zh="在每餐前适度提醒，帮助你养成稳定的记录习惯。"></p>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:24px">
+      <div class="card">
+        <div class="tag" data-en="Export" data-zh="导出"></div>
+        <h3 style="margin:12px 0" data-en="CSV export" data-zh="CSV 导出"></h3>
+        <p class="text2" data-en="Export meals, cost, mood and tags for personal analysis or backup."
+           data-zh="导出三餐、消费、心情与标签数据，便于自我分析或备份。"></p>
+      </div>
+      <div class="card">
+        <div class="tag" data-en="Privacy" data-zh="隐私"></div>
+        <h3 style="margin:12px 0" data-en="Private by design" data-zh="隐私优先"></h3>
+        <p class="text2" data-en="Local‑first storage. iCloud sync optional. No tracking."
+           data-zh="本地优先存储，iCloud 同步可选，无任何跟踪。"></p>
+      </div>
+      <div class="card">
+        <div class="tag" data-en="Pro (optional)" data-zh="专业版（可选）"></div>
+        <h3 style="margin:12px 0" data-en="Advanced insights" data-zh="高级洞察"></h3>
+        <p class="text2" data-en="If enabled later: richer charts, custom time slots, unlimited tags, and templates."
+           data-zh="若后续开启：更丰富的图表、自定义时段、无限标签与模板。"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="screens" class="section">
+    <h2 data-en="Screenshots" data-zh="界面预览"></h2>
+    <p class="lead" data-en="Replace the four images below with your actual screenshots."
+       data-zh="将下方四张占位图替换为你的真实截图。"></p>
+    <div class="gallery" style="margin-top:16px">
+      <img src="munch_screen1.png" data-en-src="munch_screen1.png" data-zh-src="munch_screen1_zh.png" alt="s1">
+      <img src="munch_screen2.png" data-en-src="munch_screen2.png" data-zh-src="munch_screen2_zh.png" alt="s2">
+      <img src="munch_screen3.png" data-en-src="munch_screen3.png" data-zh-src="munch_screen3_zh.png" alt="s3">
+      <img src="munch_screen4.png" data-en-src="munch_screen4.png" data-zh-src="munch_screen4_zh.png" alt="s4">
     </div>
   </section>
 
   <section class="section">
-    <h2 data-en="Screenshots" data-zh="界面预览"></h2>
-    <div class="gallery">
-      <img src="screenshot1.png" alt="Screenshot 1">
-      <img src="screenshot2.png" alt="Screenshot 2">
-      <img src="screenshot3.png" alt="Screenshot 3">
-      <img src="screenshot4.png" alt="Screenshot 4">
-    </div>
-  </section>
-
-   <section class="section">
     <div class="grid-2">
       <div class="card">
         <h2 id="privacy" data-en="Privacy" data-zh="隐私"></h2>
-        <p class="text2" data-en="Your data stays on your device. "
-           data-zh="数据默认仅存储在本机。"></p>
+        <p class="text2" data-en="Munchlog is privacy‑first. Your data stays on your device by default. Optional iCloud sync is end‑to‑end encrypted."
+           data-zh="三餐记以隐私为先。数据默认仅保存在你的设备上。可选的 iCloud 同步采用端到端加密。"></p>
         <ul style="margin:12px 0 0 18px; color: var(--text2); line-height:1.7">
-          <li data-en="We do not request access to your contacts, location, photos, or microphone."
-              data-zh="我们不会请求访问您的联系人、位置信息、照片或麦克风。"></li>
+          <li data-en="We do not request access to your contacts, location, or microphone. Photos access is only requested when you choose to attach a photo."
+              data-zh="我们不会请求访问您的联系人、位置信息或麦克风。仅在你选择添加照片时，才会请求照片访问权限。"></li>
           <li data-en="We do not track your device identifiers or behavior data."
               data-zh="我们不会追踪您的设备标识或行为数据。"></li>
         </ul>
@@ -104,34 +187,53 @@ footer { text-align: center; margin-top: 64px; font-size: 14px; color: var(--tex
       <div class="card">
         <h2 id="support" data-en="Support" data-zh="支持"></h2>
         <p class="text2" data-en="Have questions or feedback? Email us or open an issue on GitHub."
-           data-zh="有问题或建议？欢迎发送邮件，或在 GitHub 提交 Issue。"></p>
-        <p><a href="mailto:support@example.com">freesysck@outlook.com</a></p>
+           data-zh="有问题或建议？欢迎邮件联系，或在 GitHub 提交 Issue。"></p>
+        <p><a href="mailto:support@example.com">support@example.com</a></p>
         <p>
-          <a href="https://github.com/chenkaitech/HueView" target="_blank" rel="noopener"
+          <a href="https://github.com/chenkaitech/Munchlog" target="_blank" rel="noopener"
              data-en="GitHub Repository" data-zh="GitHub 仓库"></a><br>
-          <a href="https://github.com/chenkaitech/HueView/issues" target="_blank" rel="noopener"
+          <a href="https://github.com/chenkaitech/Munchlog/issues" target="_blank" rel="noopener"
              data-en="Report an issue on GitHub" data-zh="在 GitHub 提交问题"></a>
         </p>
       </div>
     </div>
   </section>
 
-  <footer>
-    <p data-en="© 2025 CXY Studio. All rights reserved." data-zh="© 2025 CXY Studio。保留所有权利。"></p>
+  <footer class="footer">
+    <div class="grid-2">
+      <div>
+        <strong>Munchlog · 三餐记</strong><br>
+        <span data-en="© 2025 Your Studio. All rights reserved."
+              data-zh="© 2025 你的工作室。保留所有权利。"></span>
+      </div>
+      <div style="text-align:right">
+        <a href="#privacy" data-en="Privacy Policy" data-zh="隐私政策"></a> ·
+        <a href="#support" data-en="Support" data-zh="支持"></a>
+      </div>
+    </div>
   </footer>
 </div>
+
 <script>
-function setLang(lang) {
-  document.querySelectorAll('[data-en]').forEach(el => {
-    el.textContent = el.getAttribute(lang === 'zh' ? 'data-zh' : 'data-en');
+function swapLangImages(lang){
+  document.querySelectorAll("img[data-en-src]").forEach(img=>{
+    const src = img.getAttribute(lang==="zh" ? "data-zh-src" : "data-en-src");
+    if(src) img.setAttribute("src", src);
   });
-  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
-  localStorage.setItem('lang', lang);
 }
-const saved = localStorage.getItem('lang') || (navigator.language.startsWith('zh') ? 'zh' : 'en');
-document.getElementById('btn-en').onclick = () => setLang('en');
-document.getElementById('btn-zh').onclick = () => setLang('zh');
+function setLang(lang){
+  document.querySelectorAll("[data-en]").forEach(el=>{
+    const text = el.getAttribute(lang === "zh" ? "data-zh" : "data-en");
+    if(text!==null){ el.textContent = text; }
+  });
+  document.getElementById("btn-en").classList.toggle("active", lang==="en");
+  document.getElementById("btn-zh").classList.toggle("active", lang==="zh");
+  localStorage.setItem("munch-lang", lang);
+  swapLangImages(lang);
+}
+document.getElementById("btn-en").onclick=()=>setLang("en");
+document.getElementById("btn-zh").onclick=()=>setLang("zh");
+const saved = localStorage.getItem("munch-lang") || (navigator.language.startsWith("zh")?"zh":"en");
 setLang(saved);
 </script>
 </body>
